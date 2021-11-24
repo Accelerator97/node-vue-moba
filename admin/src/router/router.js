@@ -2,6 +2,8 @@ import {createRouter, createWebHashHistory} from 'vue-router'
 import Main from '../views/main.vue'
 import CategoryEdit from '../views/categoryEdit.vue'
 import CategoryList from '../views/categoryList.vue'
+import ItemEdit from '../views/itemEdit.vue'
+import ItemList from '../views/itemList.vue'
 
 const routes = [
     {
@@ -16,6 +18,9 @@ const routes = [
             {path:'/categories/create',component:CategoryEdit},
             {path:'/categories/edit/:id',component:CategoryEdit,props:true},
             {path:'/categories/list',component:CategoryList},
+            {path:'/items/create',component:ItemEdit},
+            {path:'/items/edit/:id',component:ItemEdit,props:true},
+            {path:'/items/list',component:ItemList},
         ]
     },
 ]
