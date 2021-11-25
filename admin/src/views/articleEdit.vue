@@ -50,7 +50,6 @@ export default {
       } else {
         res = await this.$http.post("rest/articles", this.model);
       }
-      console.log(res);
       this.$message({
         type: "success",
         message: "保存成功",
@@ -65,7 +64,6 @@ export default {
       this.categories = res.data.filter(
         (item) => item.parent && item.parent.name === "news"
       );
-      console.log(this.categories,'categories')
     },
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       const formData = new FormData();//创建一个表单数据

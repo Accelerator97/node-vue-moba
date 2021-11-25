@@ -44,7 +44,6 @@ export default {
       } else {
         res = await this.$http.post("rest/categories", this.model);
       }
-      console.log(res);
       this.$router.push("/categories/list");
       this.$message({
         type: "success",

@@ -175,7 +175,6 @@ export default {
       } else {
         res = await this.$http.post("rest/heroes", this.model);
       }
-      console.log(res);
       this.$router.push("/heroes/list");
       this.$message({
         type: "success",

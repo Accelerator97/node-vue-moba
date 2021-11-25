@@ -53,7 +53,6 @@ export default {
         type: "warning",
       }).then(async () => {
         const res = await this.$http.delete(`rest/items/${row._id}`);
-        console.log(res);
         this.$message({
           type: "success",
           message: "删除成功",
