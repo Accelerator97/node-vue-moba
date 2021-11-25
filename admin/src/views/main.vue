@@ -3,7 +3,7 @@
     <el-aside class="aside" style="background-color: rgb(238, 241, 246)">
       <el-menu router :default-openeds="['1']">
         <el-sub-menu index="1" class="menu">
-          <template #title >
+          <template #title>
             <el-icon class="icon"><Menu /></el-icon>
             <span class="title">内容管理</span>
           </template>
@@ -21,6 +21,11 @@
             <template #title>英雄</template>
             <el-menu-item index="/heroes/create">新建英雄</el-menu-item>
             <el-menu-item index="/heroes/list">英雄列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template #title>文章</template>
+            <el-menu-item index="/articles/create">新建文章</el-menu-item>
+            <el-menu-item index="/articles/list">文章列表</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
       </el-menu>

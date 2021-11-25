@@ -188,7 +188,7 @@ export default {
     },
     async fetchCategories() {
       const res = await this.$http.get(`rest/categories`);
-      this.categories = res.data;
+      this.categories = res.data.filter(item => item.parent && item.parent.name === 'heroes')
     },
     async fetchItems() {
       const res = await this.$http.get(`rest/items`);

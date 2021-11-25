@@ -1,19 +1,22 @@
 <template>
   <div>
-    <h1>{{ id ? "编辑" : "新建" }}分类</h1>
+    <h1>{{ id ? "编辑" : "新建" }}文章</h1>
     <el-form label-width="120px" @submit.prevent="save">
-      <el-form-item label="上级分类">
-        <el-select v-model="model.parent">
+      <el-form-item label="所属分类">
+        <el-select v-model="model.categories">
           <el-option
-            v-for="item in parents"
+            v-for="item in categories"
             :key="item._id"
             :label="item.name"
             :value="item._id"
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="名称">
-        <el-input v-model="model.name" placeholder="请输入名称"></el-input>
+      <el-form-item label="标题">
+        <el-input v-model="model.title" placeholder="请输入标题"></el-input>
+      </el-form-item>
+      <el-form-item label="详情">
+        <el-input v-model="model.body" placeholder="请输入标题"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -30,38 +33,40 @@ export default {
   data() {
     return {
       model: {
-        name: "",
-        parent: "",
+        categories: "",
+        title: "",
+        body:''
       },
-      parents: [],
     };
   },
   methods: {
     async save() {
       let res;
       if (this.id) {
-        res = await this.$http.put(`rest/categories/${this.id}`, this.model);
+        res = await this.$http.put(`rest/articles/${this.id}`, this.model);
       } else {
-        res = await this.$http.post("rest/categories", this.model);
+        res = await this.$http.post("rest/articles", this.model);
       }
       console.log(res);
-      this.$router.push("/categories/list");
+      this.$router.push("/articles/list");
       this.$message({
         type: "success",
         message: "保存成功",
       });
     },
     async fetchItemById() {
-      const res = await this.$http.get(`rest/categories/${this.id}`);
+      const res = await this.$http.get(`rest/articles/${this.id}`);
       this.model = res.data;
     },
-    async fetchParents() {
+    async fetchCategories() {
       const res = await this.$http.get(`rest/categories`);
-      this.parents = res.data;
+      this.categories = res.data.filter(
+        (item) => item.parent && item.parent.name === "news"
+      );
     },
   },
   created() {
-    this.fetchParents()
+    this.fetchCategories();
     this.id && this.fetchItemById();
   },
 };
