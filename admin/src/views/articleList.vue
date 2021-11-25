@@ -1,5 +1,5 @@
 <template>
-  <div class="list">
+  <div >
     <h1>文章列表</h1>
     <el-table :data="items" class="table">
       <el-table-column prop="_id" label="ID" width="220"></el-table-column>
