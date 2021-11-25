@@ -1,9 +1,9 @@
 <template>
   <el-container class="container" style="height: 100vh; border: 1px solid #eee">
     <el-aside class="aside" style="background-color: rgb(238, 241, 246)">
-      <el-menu router>
+      <el-menu router :default-openeds="['1']">
         <el-sub-menu index="1" class="menu">
-          <template #title>
+          <template #title >
             <el-icon class="icon"><Menu /></el-icon>
             <span class="title">内容管理</span>
           </template>
@@ -16,6 +16,11 @@
             <template #title>物品</template>
             <el-menu-item index="/items/create">新建物品</el-menu-item>
             <el-menu-item index="/items/list">物品列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template #title>英雄</template>
+            <el-menu-item index="/heroes/create">新建英雄</el-menu-item>
+            <el-menu-item index="/heroes/list">英雄列表</el-menu-item>
           </el-menu-item-group>
         </el-sub-menu>
       </el-menu>
