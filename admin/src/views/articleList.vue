@@ -3,7 +3,7 @@
     <h1>文章列表</h1>
     <el-table :data="items" class="table">
       <el-table-column prop="_id" label="ID" width="220"></el-table-column>
-      <el-table-column prop="title" label="分类名称"></el-table-column>
+      <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column label="操作" width="200">
         <template #default="scope">
           <el-button
@@ -13,11 +13,7 @@
           >
             编辑
           </el-button>
-          <el-button 
-            type="primary" 
-            size="medium" 
-            @click="remove(scope.row)"
-          >
+          <el-button type="primary" size="medium" @click="remove(scope.row)">
             删除
           </el-button>
         </template>
@@ -40,6 +36,7 @@ export default {
     async fetch() {
       const res = await this.$http.get("rest/articles");
       this.items = res.data;
+      console.log(this.items)
     },
     async remove(row) {
       this.$confirm(`是否确认删除分类:${row.name}`, "提示", {
@@ -61,5 +58,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>
