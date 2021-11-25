@@ -7,9 +7,18 @@ import 'element-plus/dist/index.css'
 import './style.css'
 import {Rate} from 'ant-design-vue'
 
-const app = createApp(App).use(router)
-
+export const app = createApp(App).use(router)
+app.mixin({
+    methods: {
+        getAuthHeaders() {
+            return {
+                Authorization: `Bearer ${sessionStorage.token}`
+            }
+        }
+    }
+})
 app.config.globalProperties.$http = http;
 app.config.globalProperties.$message = ElMessage;
 app.config.globalProperties.$confirm = ElMessageBox.confirm;
+
 app.use(Rate).mount('#app')
