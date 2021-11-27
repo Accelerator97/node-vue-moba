@@ -18,5 +18,53 @@ body{
 
 a {
     color: #999;
-    
+    text-decoration: none;
+}
+
+//colors
+
+$colors:(
+    "primary":#db9e3f,
+    "white":#fff,
+    "light":#f9f9f9,
+    "black":#000,
+    "dark-1":#333,
+    "dark":#222,
+    "grey":#999,
+);
+//colors是一个对象
+@each $colorKey,$color in $colors{
+    .text-#{$colorKey}{
+        color:$color
+    }
+    .bg-#{$colorKey}{
+        background-color: $color;
+    }
+}
+
+//text align
+//这里的left,center和right是数组
+@each $var in (left,center,right){
+    .text-#{$var}{
+        text-align: $var;
+    }
+}
+
+//font size
+//这里还要安装px to rem插件换算成rem
+//alt + s 重新设定基准值
+//然后选中要换算的值按下alt + z
+$base-font-size:1rem;
+$font-sizes:(
+    xs:0.7692,//10px
+    sm:0.9231,//12px
+    md:1,//13px
+    lg:1.0769,//14px
+    xl:1.2308 //16px
+);
+
+@each $sizeKey,$size in $font-sizes{
+    .fs-#{$sizeKey}{
+        font-size: $size* $base-font-size;
+    }
 }
