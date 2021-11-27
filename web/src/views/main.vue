@@ -11,17 +11,25 @@
     <div class="bg-primary pt-2 pb-2">
       <div class="nav d-flex jc-around">
         <div class="nav-item active">
-          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/">
+          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/home">
             <div @click="navigate" @keypress.enter="navigate" role="link">
               首页
             </div>
           </router-link>
         </div>
-        <div class="nav-item">
-          <router-link class="nav-link text-white" to="/">攻略中心</router-link>
+        <div class="nav-item ">
+          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/strategycenter">
+            <div @click="navigate" @keypress.enter="navigate" role="link">
+              攻略中心
+            </div>
+          </router-link>
         </div>
-        <div class="nav-item">
-          <router-link class="nav-link text-white" to="/">赛事中心</router-link>
+        <div class="nav-item ">
+          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/matchcenter">
+            <div @click="navigate" @keypress.enter="navigate" role="link">
+              赛事中心
+            </div>
+          </router-link>
         </div>
       </div>
     </div>
