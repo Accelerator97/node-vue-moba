@@ -14,6 +14,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.2em;
     background: #f1f1f1;
+    -webkit-font-smoothing:antialiased;
 }
 
 a {
@@ -31,6 +32,7 @@ $colors:(
     "dark-1":#333,
     "dark":#222,
     "grey":#999,
+    "grey-1":#666
 );
 //colors是一个对象
 @each $colorKey,$color in $colors{
@@ -56,6 +58,7 @@ $colors:(
 //然后选中要换算的值按下alt + z
 $base-font-size:1rem;
 $font-sizes:(
+    xxs:0.6154,
     xs:0.7692,//10px
     sm:0.9231,//12px
     md:1,//13px
@@ -96,7 +99,7 @@ $flex-ai:(
 );
 
 @each $key,$value in $flex-ai{
-    .jc-#{$key}{
+    .ai-#{$key}{
         align-items: $value;
     }
 }
@@ -155,6 +158,25 @@ $spacing-sizes:(
             .#{$typeKey}#{$directionKey}-#{$sizeKey}{
                 #{$type}-#{$direction}:$size * $spacing-base-size
             }
+        }
+    }
+}
+
+//button
+.btn{
+    border: none;
+    border-radius: 0.1538rem;
+    font-size: map-get($font-sizes,'sm') * $base-font-size;
+    padding: 0.2rem 0.5rem;
+}
+
+//nav
+.nav{
+    .nav-item{
+        border-bottom: 3px solid transparent;
+        padding-bottom: 0.2rem;
+        &.active{
+            border-bottom: 3px solid #fff;
         }
     }
 }

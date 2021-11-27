@@ -1,15 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <div id="nav">
+    <Main />
+  </div>
 </template>
-
 <script>
-
+import Main from './views/main.vue'
 export default {
-  name: 'App',
-  components: {
-  }
+  components:{Main}
+  
 }
 </script>
+<style lang="scss">
 
-<style>
 </style>
