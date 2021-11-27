@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- 轮播图开始 -->
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div class="swiper-slide">
@@ -13,6 +14,20 @@
         </div>
       </div>
       <div class="swiper-pagination"></div>
+    </div>
+    <!-- 轮播图结束 -->
+    <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
+      <div class="d-flex flex-wrap">
+        <div class="nav-item mb-3" v-for="n in 10" :key="n">
+          <i class="sprite sprite-item"></i>
+          <div class="py-2">哈哈哈</div>
+        </div>
+      </div>
+
+      <div class="bg-light py-2 fs-sm">
+        <i class="sprite sprite-arrow mr-2"></i>
+        <span>收起</span>
+      </div>
     </div>
   </div>
 </template>
@@ -29,9 +44,7 @@ export default {
   mounted() {
     new Swiper(".swiper-container", {
       loop: true, //循环
-      //   autoplay: true,
-      indicatorColor: "black",
-      indicatorActiveColor: "#009f7f",
+      autoplay: true,
       pagination: {
         //分页符
         el: ".swiper-pagination",
@@ -47,10 +60,21 @@ export default {
   z-index: 99;
   > .swiper-pagination-bullet {
     background: #fff;
-    opacity:0.5;
+    opacity: 0.5;
     text-align: right;
     &.swiper-pagination-bullet-active {
-      background: map-get($colors,'info');
+      background: map-get($colors, "info");
+    }
+  }
+}
+.nav-icons {
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  .nav-item {
+    width: 25%;
+    border-left: 1px solid $border-color;
+    &:nth-child(4n + 1) {
+      border-radius: none;
     }
   }
 }

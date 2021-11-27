@@ -5,14 +5,15 @@ $colors:(
     "info":#4b67af,
     "white":#fff,
     "light":#f9f9f9,
+    "light-1":#d4d9de,
     "black":#000,
     "dark-1":#333,
     "dark":#222,
     "grey":#999,
-    "grey-1":#666
+    "grey-1":#666,
 );
-
-
+//border
+$border-color:map-get($colors ,'light-1' );
 
 //font size
 //这里还要安装px to rem插件换算成rem
