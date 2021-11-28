@@ -56,7 +56,6 @@ export default {
     },
     onSwiper(swiper) {
       this.swiper = swiper;
-      console.log(this.swiper)
     },
   },
 };

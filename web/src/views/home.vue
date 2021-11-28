@@ -34,20 +34,8 @@
       </div>
     </div>
     <!-- 精灵图结束 -->
-    <ListCard icon="Menu" title="新闻资讯" :categories="newsCats">
-      <template #items="{ category }">
-        <div
-          v-for="(news, index) in category.newsList"
-          :key="index"
-          class="py-2 fs-lg d-flex"
-        >
-          <span class="text-info">[{{ news.categoryName }}]</span>
-          <span class="px-2">|</span>
-          <span class="flex-1 text-dark text-ellipse">{{ news.title }}</span>
-          <span class="fs-sm">{{ beautify(news.createTime) }}</span>
-        </div>
-      </template>
-    </ListCard>
+    <Articles/>
+    <Heroes/>
   </div>
 </template>
 
@@ -63,28 +51,11 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
-import ListCard from "../components/listCard.vue";
-import dayjs from "dayjs";
+import Heroes from '../components/home/heroes.vue'
+import Articles from '../components/home/articles.vue'
 export default {
-  components: { ListCard, Swiper, SwiperSlide },
-  data() {
-    return {
-      newsCats: [],
-    };
-  },
-  created() {
-    this.fetchNewsCats();
-  },
-  methods: {
-    async fetchNewsCats() {
-      const res = await this.$http.get("news/list");
-      console.log(res.data);
-      this.newsCats = res.data;
-    },
-    beautify(date) {
-      return dayjs(date).format("MM/DD");
-    },
-  },
+  components: {  Swiper, SwiperSlide,Heroes,Articles },
+ 
 };
 </script>
 
