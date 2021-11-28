@@ -30,7 +30,7 @@ export default {
 @import '../assets/styles/_variables.scss';
 .card{
     .card-header{
-        border-bottom: 3px solid $border-color;
+        border-bottom: 1px solid $border-color;
     }
 }
 </style>

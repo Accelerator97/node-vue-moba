@@ -128,9 +128,6 @@ a {
         &.active{
             color: map-get($colors,'primary')!important;
             border-bottom: 3px solid map-get($colors,'primary')!important;
-            &.nav-link {
-                color: map-get($colors,'primary')!important;
-            }
         }
     }
     &.nav-inverse{

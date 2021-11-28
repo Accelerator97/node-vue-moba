@@ -31,86 +31,53 @@
       </div>
     </div>
     <!-- 精灵图结束 -->
-    <Card icon="Menu" title="新闻资讯">
-        <div class="nav pb-3 jc-between">
-          <div class="nav-item active">
-            <router-link class="nav-link" v-slot="{ navigate }" to="/home">
-              <div @click="navigate" @keypress.enter="navigate" role="link">
-                热门
-              </div>
-            </router-link>
-          </div>
-          <div class="nav-item">
-            <router-link
-              class="nav-link"
-              v-slot="{ navigate }"
-              to="/strategycenter"
-            >
-              <div @click="navigate" @keypress.enter="navigate" role="link">
-                新闻
-              </div>
-            </router-link>
-          </div>
-          <div class="nav-item">
-            <router-link
-              class="nav-link"
-              v-slot="{ navigate }"
-              to="/matchcenter"
-            >
-              <div @click="navigate" @keypress.enter="navigate" role="link">
-                公告
-              </div>
-            </router-link>
-          </div>
-                    <div class="nav-item">
-            <router-link
-              class="nav-link"
-              v-slot="{ navigate }"
-              to="/matchcenter"
-            >
-              <div @click="navigate" @keypress.enter="navigate" role="link">
-                活动
-              </div>
-            </router-link>
-          </div>
-                    <div class="nav-item">
-            <router-link
-              class="nav-link"
-              v-slot="{ navigate }"
-              to="/matchcenter"
-            >
-              <div @click="navigate" @keypress.enter="navigate" role="link">
-                赛事
-              </div>
-            </router-link>
-          </div>
+    <ListCard icon="Menu" title="新闻资讯" :categories="newsCats">
+      <template #items="{ category }">
+        <div class="py-2" v-for="(news,index) in category.newsList" :key="index">
+          <span>[{{ news.categoryName }}</span>
+          <span>|</span>
+          <span>{{ news.title }}</span>
+          <span>{{ news.date }}</span>
         </div>
-        <div class="swiper-container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="m in 5" :key="m">
-               <div class="py-2" v-for="n in 5" :key="n">
-                   <span>[新闻]</span>
-                    <span>|</span>
-                    <span>虎牙雷霆杯新玩法上限，看主播</span>
-                    <span>11/26</span>
-               </div>
-            </div>
-          </div>
-        </div>
-    </Card>
-    <Card icon="Menu" title="英雄列表"/>
+      </template>
+    </ListCard>
   </div>
 </template>
 
 <script>
 import Swiper from "swiper/swiper-bundle.min.js";
 import "swiper/swiper-bundle.min.css";
-import Card from '../components/card.vue'
+import ListCard from "../components/listCard.vue";
 export default {
-  components:{Card},
+  components: { ListCard },
   data() {
     return {
-      active: 0,
+      newsCats: [
+        {
+          name: "热门",
+          newsList: new Array(5).fill({}).map((item) => ({
+            categoryName: "热门",
+            title: "6月2日不停机更新公告",
+            date: "06/01",
+          })),
+        },
+        {
+          name: "赛事",
+          newsList: new Array(5).fill({}).map((item) => ({
+            categoryName: "赛事",
+            title: "6月2日不停机更新公告",
+            date: "06/01",
+          })),
+        },
+        {
+          name: "公告",
+          newsList: new Array(5).fill({}).map((item) => ({
+            categoryName: "公告",
+            title: "6月2日不停机更新公告",
+            date: "06/01",
+          })),
+        },
+      ],
     };
   },
   mounted() {
