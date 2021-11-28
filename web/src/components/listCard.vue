@@ -11,7 +11,12 @@
         <div class="nav-link">{{ category.name }}</div>
       </div>
     </div>
-    <swiper autoHeight @swiper="onSwiper">
+    <swiper
+      ref="list"
+      autoHeight
+      @swiper="onSwiper"
+      @slide-change="() => active = swiper.realIndex"
+    >
       <swiper-slide v-for="(category, index) in categories" :key="index">
         <slot name="items" :category="category"></slot>
       </swiper-slide>
@@ -26,12 +31,11 @@ import SwiperCore, {
   Pagination,
   Scrollbar,
   A11y,
-  Autoplay,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
-SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 
 export default {
   components: { Card, Swiper, SwiperSlide },
@@ -48,11 +52,11 @@ export default {
   },
   methods: {
     handleClick(index) {
-      this.active = index;
-      this.swiper.slideTo(index); /*滑动到对应的滑块*/
+      this.swiper.slideTo(index)
     },
     onSwiper(swiper) {
       this.swiper = swiper;
+      console.log(this.swiper)
     },
   },
 };

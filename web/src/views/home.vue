@@ -1,20 +1,17 @@
 <template>
   <div>
     <!-- 轮播图开始 -->
-    <div class="swiper-container">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img class="w-100" src="../assets/images/1.jpeg" alt="" />
-        </div>
-        <div class="swiper-slide">
-          <img class="w-100" src="../assets/images/2.jpeg" alt="" />
-        </div>
-        <div class="swiper-slide">
-          <img class="w-100" src="../assets/images/3.jpeg" alt="" />
-        </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div>
+    <swiper class="swiper-container" autoplay loop :slides-per-view="1" :pagination="{ clickable: false }">
+      <swiper-slide class="swiper-slide">
+        <img class="w-100" src="../assets/images/1.jpeg" />
+      </swiper-slide>
+      <swiper-slide class="swiper-slide">
+        <img class="w-100" src="../assets/images/2.jpeg"  />
+      </swiper-slide>
+      <swiper-slide class="swiper-slide">
+        <img class="w-100" src="../assets/images/3.jpeg"  />
+      </swiper-slide>
+    </swiper>
     <!-- 轮播图结束 -->
     <!-- 精灵图开始 -->
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
@@ -33,7 +30,11 @@
     <!-- 精灵图结束 -->
     <ListCard icon="Menu" title="新闻资讯" :categories="newsCats">
       <template #items="{ category }">
-        <div class="py-2" v-for="(news,index) in category.newsList" :key="index">
+        <div
+          class="py-2"
+          v-for="(news, index) in category.newsList"
+          :key="index"
+        >
           <span>[{{ news.categoryName }}</span>
           <span>|</span>
           <span>{{ news.title }}</span>
@@ -45,11 +46,21 @@
 </template>
 
 <script>
-import Swiper from "swiper/swiper-bundle.min.js";
-import "swiper/swiper-bundle.min.css";
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper.scss";
+import "swiper/components/pagination/pagination.scss";
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+
 import ListCard from "../components/listCard.vue";
 export default {
-  components: { ListCard },
+  components: { ListCard, Swiper, SwiperSlide },
   data() {
     return {
       newsCats: [
@@ -79,16 +90,6 @@ export default {
         },
       ],
     };
-  },
-  mounted() {
-    new Swiper(".swiper-container", {
-      loop: true, //循环
-      autoplay: true,
-      pagination: {
-        //分页符
-        el: ".swiper-pagination",
-      },
-    });
   },
 };
 </script>
