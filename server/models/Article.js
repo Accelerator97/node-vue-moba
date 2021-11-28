@@ -1,10 +1,20 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
-    title:{type:String},
-    //type表示数据类型，ref表示关联到哪个模型
-    categories:[{type:mongoose.SchemaTypes.ObjectId,ref:'Category'}],
-    body:{type:String}
-})
+const Schema = new mongoose.Schema({
+    title: { type: String },
+    categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }], //有可能有多个分类
+    body: { type: String },
+    createTime: {
+        type: Date,
+        default: Date.now
+    },
+    updateTime: {
+        type: Date,
+        default: Date.now
+    }
+}, {
+    versionKey: false,
+    timestamps: { createdAt: 'createTime', updatedAt: 'updateTime' }
+});
 
-module.exports = mongoose.model('Article',schema)
+module.exports = mongoose.model('Article', Schema);

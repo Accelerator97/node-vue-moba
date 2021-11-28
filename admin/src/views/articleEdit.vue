@@ -62,7 +62,7 @@ export default {
     async fetchCategories() {
       const res = await this.$http.get(`rest/categories`);
       this.categories = res.data.filter(
-        (item) => item.parent && item.parent.name === "news"
+        (item) => item.parent && item.parent.name === "新闻分类"
       );
     },
     async handleImageAdded(file, Editor, cursorLocation, resetUploader) {

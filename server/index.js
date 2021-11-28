@@ -11,7 +11,9 @@ app.use('/uploads',express.static(__dirname + '/uploads'))
 
 //引用进来是一个函数需要执行，向这个函数传入app作为参数
 require('./routes/admin')(app)
+require('./routes/web')(app)
 require('./plugins/db')(app)
+
 
 app.listen(3000,()=>{
     console.log('开启3000端口')

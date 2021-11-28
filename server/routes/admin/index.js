@@ -32,7 +32,7 @@ module.exports = app => {
             queryOptions.populate = 'parent';
         }
         //返回10条数据给前端
-        const items = await req.Model.find().setOptions(queryOptions).limit(10)
+        const items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items)
     })
     //4.获取资源详情

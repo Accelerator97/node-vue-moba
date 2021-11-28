@@ -1,15 +1,21 @@
 <template>
   <div>
     <!-- 轮播图开始 -->
-    <swiper class="swiper-container" autoplay loop :slides-per-view="1" :pagination="{ clickable: false }">
+    <swiper
+      class="swiper-container"
+      autoplay
+      loop
+      :slides-per-view="1"
+      :pagination="{ clickable: false }"
+    >
       <swiper-slide class="swiper-slide">
         <img class="w-100" src="../assets/images/1.jpeg" />
       </swiper-slide>
       <swiper-slide class="swiper-slide">
-        <img class="w-100" src="../assets/images/2.jpeg"  />
+        <img class="w-100" src="../assets/images/2.jpeg" />
       </swiper-slide>
       <swiper-slide class="swiper-slide">
-        <img class="w-100" src="../assets/images/3.jpeg"  />
+        <img class="w-100" src="../assets/images/3.jpeg" />
       </swiper-slide>
     </swiper>
     <!-- 轮播图结束 -->
@@ -31,14 +37,14 @@
     <ListCard icon="Menu" title="新闻资讯" :categories="newsCats">
       <template #items="{ category }">
         <div
-          class="py-2"
           v-for="(news, index) in category.newsList"
           :key="index"
+          class="py-2 fs-lg d-flex"
         >
-          <span>[{{ news.categoryName }}</span>
-          <span>|</span>
-          <span>{{ news.title }}</span>
-          <span>{{ news.date }}</span>
+          <span class="text-info">[{{ news.categoryName }}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark text-ellipse">{{ news.title }}</span>
+          <span class="fs-sm">{{ beautify(news.createTime) }}</span>
         </div>
       </template>
     </ListCard>
@@ -57,39 +63,27 @@ import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
-
 import ListCard from "../components/listCard.vue";
+import dayjs from "dayjs";
 export default {
   components: { ListCard, Swiper, SwiperSlide },
   data() {
     return {
-      newsCats: [
-        {
-          name: "热门",
-          newsList: new Array(5).fill({}).map((item) => ({
-            categoryName: "热门",
-            title: "6月2日不停机更新公告",
-            date: "06/01",
-          })),
-        },
-        {
-          name: "赛事",
-          newsList: new Array(5).fill({}).map((item) => ({
-            categoryName: "赛事",
-            title: "6月2日不停机更新公告",
-            date: "06/01",
-          })),
-        },
-        {
-          name: "公告",
-          newsList: new Array(5).fill({}).map((item) => ({
-            categoryName: "公告",
-            title: "6月2日不停机更新公告",
-            date: "06/01",
-          })),
-        },
-      ],
+      newsCats: [],
     };
+  },
+  created() {
+    this.fetchNewsCats();
+  },
+  methods: {
+    async fetchNewsCats() {
+      const res = await this.$http.get("news/list");
+      console.log(res.data);
+      this.newsCats = res.data;
+    },
+    beautify(date) {
+      return dayjs(date).format("MM/DD");
+    },
   },
 };
 </script>
