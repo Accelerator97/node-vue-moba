@@ -9,7 +9,7 @@
       <button type="button" class="btn bg-primary">立即下载</button>
     </div>
     <div class="bg-primary pt-2 pb-2">
-      <div class="nav d-flex jc-around">
+      <div class="nav nav-inverse jc-around ai-center">
         <div class="nav-item active">
           <router-link class="nav-link text-white" v-slot="{ navigate }" to="/home">
             <div @click="navigate" @keypress.enter="navigate" role="link">

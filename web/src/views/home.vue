@@ -16,6 +16,7 @@
       <div class="swiper-pagination"></div>
     </div>
     <!-- 轮播图结束 -->
+    <!-- 精灵图开始 -->
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
       <div class="d-flex flex-wrap">
         <div class="nav-item mb-3" v-for="n in 10" :key="n">
@@ -29,13 +30,84 @@
         <span>收起</span>
       </div>
     </div>
+    <!-- 精灵图结束 -->
+    <Card icon="Menu" title="新闻资讯">
+        <div class="nav pb-3 jc-between">
+          <div class="nav-item active">
+            <router-link class="nav-link" v-slot="{ navigate }" to="/home">
+              <div @click="navigate" @keypress.enter="navigate" role="link">
+                热门
+              </div>
+            </router-link>
+          </div>
+          <div class="nav-item">
+            <router-link
+              class="nav-link"
+              v-slot="{ navigate }"
+              to="/strategycenter"
+            >
+              <div @click="navigate" @keypress.enter="navigate" role="link">
+                新闻
+              </div>
+            </router-link>
+          </div>
+          <div class="nav-item">
+            <router-link
+              class="nav-link"
+              v-slot="{ navigate }"
+              to="/matchcenter"
+            >
+              <div @click="navigate" @keypress.enter="navigate" role="link">
+                公告
+              </div>
+            </router-link>
+          </div>
+                    <div class="nav-item">
+            <router-link
+              class="nav-link"
+              v-slot="{ navigate }"
+              to="/matchcenter"
+            >
+              <div @click="navigate" @keypress.enter="navigate" role="link">
+                活动
+              </div>
+            </router-link>
+          </div>
+                    <div class="nav-item">
+            <router-link
+              class="nav-link"
+              v-slot="{ navigate }"
+              to="/matchcenter"
+            >
+              <div @click="navigate" @keypress.enter="navigate" role="link">
+                赛事
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="m in 5" :key="m">
+               <div class="py-2" v-for="n in 5" :key="n">
+                   <span>[新闻]</span>
+                    <span>|</span>
+                    <span>虎牙雷霆杯新玩法上限，看主播</span>
+                    <span>11/26</span>
+               </div>
+            </div>
+          </div>
+        </div>
+    </Card>
+    <Card icon="Menu" title="英雄列表"/>
   </div>
 </template>
 
 <script>
 import Swiper from "swiper/swiper-bundle.min.js";
 import "swiper/swiper-bundle.min.css";
+import Card from '../components/card.vue'
 export default {
+  components:{Card},
   data() {
     return {
       active: 0,

@@ -121,11 +121,24 @@ a {
 
 //nav
 .nav{
+    display: flex;
     .nav-item{
         border-bottom: 3px solid transparent;
         padding-bottom: 0.2rem;
         &.active{
-            border-bottom: 3px solid #fff;
+            color: map-get($colors,'primary')!important;
+            border-bottom: 3px solid map-get($colors,'primary')!important;
+            &.nav-link {
+                color: map-get($colors,'primary')!important;
+            }
+        }
+    }
+    &.nav-inverse{
+        .nav-item{
+            color: map-get($colors,'white')!important;
+            &.active{
+                border-bottom: 3px solid map-get($colors , 'white')!important;
+            }
         }
     }
 }
