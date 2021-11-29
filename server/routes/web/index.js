@@ -6,9 +6,11 @@ module.exports = app => {
     mongoose.model.Category = require('../../models/Category')
     mongoose.model.Article = require('../../models/Article')
     mongoose.model.Hero = require('../../models/Hero')
+    mongoose.model.Item = require('../../models/Item')
     let Category = mongoose.model.Category,
         Article = mongoose.model.Article,
-        Hero = mongoose.model.Hero
+        Hero = mongoose.model.Hero,
+        Item = mongoose.model.Item
 
     //不是正式接口，而是通过JS把数据录入到后台，导入新闻
     router.get('/news/init', async (req, res) => {
@@ -184,7 +186,8 @@ module.exports = app => {
 
     //英雄详情接口
     router.get('/heroes/:id',async(req,res)=>{
-        const data = await Hero.findById(req.params.id).lean()
+        //populate关联查询，把categories相关的数据都返回给前端
+        const data = await Hero.findById(req.params.id).populate('categories items1 items2 partners.hero').lean()
         res.send(data)
     })
 
