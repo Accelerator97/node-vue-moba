@@ -1,23 +1,37 @@
 {
-  "id": "",
-  "name": "",
+  "id": "2972887",
+  "name": "王者荣耀",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
     {
-      "icon_id": "4395678",
-      "name": "menu",
-      "font_class": "menu",
-      "unicode": "e623",
-      "unicode_decimal": 58915
+      "icon_id": "551841",
+      "name": "省略号",
+      "font_class": "more",
+      "unicode": "e637",
+      "unicode_decimal": 58935
     },
     {
-      "icon_id": "15536204",
-      "name": "Menu",
-      "font_class": "Menu",
-      "unicode": "e69e",
-      "unicode_decimal": 59038
+      "icon_id": "30441",
+      "name": "back",
+      "font_class": "back",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "21113136",
+      "name": "英雄",
+      "font_class": "heroMenu",
+      "unicode": "e6c6",
+      "unicode_decimal": 59078
+    },
+    {
+      "icon_id": "372210",
+      "name": "cc-menu-circle",
+      "font_class": "menu",
+      "unicode": "e672",
+      "unicode_decimal": 58994
     }
   ]
 }

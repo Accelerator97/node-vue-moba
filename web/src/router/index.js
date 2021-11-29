@@ -3,6 +3,7 @@ import Main from '../views/main.vue'
 import Home from '../views/home.vue'
 import StrategyCenter from '../views/strategyCenter.vue'
 import MatchCenter from '../views/matchCenter.vue'
+import ArticleDetail from '../views/articleDetail'
 const routes = [
   {
     path: '/',
@@ -14,6 +15,7 @@ const routes = [
     component: Main,
     children: [
       {path:'/home',component:Home},
+      {path:'/articles/:id',name:'articleDetail',component:ArticleDetail,props:true},
       {path:'/strategycenter',component:StrategyCenter},
       {path:'/matchcenter',component:MatchCenter}
     ]

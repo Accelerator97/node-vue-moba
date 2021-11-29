@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ListCard icon="Menu" title="英雄列表" :categories="heroesCats">
+    <ListCard icon="heroMenu" title="英雄列表" :categories="heroesCats">
       <template #items="{ category }">
         <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
           <div

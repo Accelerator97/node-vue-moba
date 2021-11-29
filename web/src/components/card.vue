@@ -3,7 +3,7 @@
     <div class="card-header d-flex ai-center pb-3">
       <i class="iconfont" :class="`icon-${icon}`"></i>
       <div class="fs-xl flex-1 px-2">{{ title }}</div>
-      <i class="iconfont icon-menu"></i>
+      <i class="iconfont icon-more"></i>
     </div>
     <div class="card-body pt-3 pb-2">
       <slot></slot>

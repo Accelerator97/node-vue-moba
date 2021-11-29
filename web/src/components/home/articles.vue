@@ -1,17 +1,20 @@
 <template>
   <div>
-    <ListCard icon="Menu" title="新闻资讯" :categories="newsCats">
+    <ListCard icon="menu" title="新闻资讯" :categories="newsCats">
       <template #items="{ category }">
-        <div
+        <router-link
           v-for="(news, index) in category.newsList"
           :key="index"
-          class="py-2 fs-lg d-flex"
+          v-slot="{navigate}"
+          :to="`/articles/${news._id}`"
         >
+        <div @click="navigate" @keypress.enter="navigate" role="link"  class="py-2 fs-lg d-flex">
           <span class="text-info">[{{ news.categoryName }}]</span>
           <span class="px-2">|</span>
           <span class="flex-1 text-dark text-ellipse">{{ news.title }}</span>
           <span class="fs-sm">{{ beautify(news.createTime) }}</span>
         </div>
+        </router-link>
       </template>
     </ListCard>
   </div>
