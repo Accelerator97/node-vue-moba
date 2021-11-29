@@ -54,7 +54,6 @@ export default {
   methods: {
     async fetchDetail() {
       const res = await this.$http.get(`/artilces/${this.id}`);
-      console.log(res);
       this.model = res.data;
     },
     beautify(date) {

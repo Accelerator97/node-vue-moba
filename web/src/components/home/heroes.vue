@@ -2,16 +2,20 @@
   <div>
     <ListCard icon="heroMenu" title="英雄列表" :categories="heroesCats">
       <template #items="{ category }">
-        <div class="d-flex flex-wrap" style="margin:0 -0.5rem">
-          <div
+        <div class="d-flex flex-wrap" style="margin: 0 -0.5rem">
+          <router-link
+            v-slot="{ navigate }"
             v-for="(hero, index) in category.heroesList"
             :key="index"
-            class="p-2 text-center"
+            :to="`/heroes/${hero._id}`"
+            class="text-center p-2"
             style="width:20%"
           >
-            <img :src="hero.avatar" class="w-100" />
-            <div>{{ hero.name }}</div>
-          </div>
+            <div @click="navigate" @keypress.enter="navigate" role="link">
+              <img :src="hero.avatar" class="w-100" />
+              <div>{{ hero.name }}</div>
+            </div>
+          </router-link>
         </div>
       </template>
     </ListCard>

@@ -182,5 +182,11 @@ module.exports = app => {
         res.send(data)
     })
 
+    //英雄详情接口
+    router.get('/heroes/:id',async(req,res)=>{
+        const data = await Hero.findById(req.params.id).lean()
+        res.send(data)
+    })
+
     app.use('/web/api', router)
 }
