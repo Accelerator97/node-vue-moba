@@ -17,7 +17,7 @@
             </div>
           </router-link>
         </div>
-        <div class="nav-item ">
+        <div class="nav-item">
           <router-link class="nav-link text-white" v-slot="{ navigate }" to="/strategycenter">
             <div @click="navigate" @keypress.enter="navigate" role="link">
               攻略中心

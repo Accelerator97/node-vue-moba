@@ -183,14 +183,20 @@ a {
     //通常完整的精灵图是通用宽度(iphone6)的两倍
     //http://www.spritecow.com/ 可以确定小图片位置
     &.sprite-item{
-        width: 1.7692rem;
-        height: 1.5385rem;
+        width: 1.8rem;  
+        height: 1.6rem;
         background-position: 63.546% 15.517%;
     }
-    &.sprite-arrow{
+    &.sprite-arrow-up{
         width: 0.7692rem;
         height: 0.7692rem;
         background-position: 38.577% 52.076%;
+    }
+    &.sprite-arrow-down{
+        width: 0.7692rem;
+        height: 0.7692rem;
+        background-position: 38.577% 52.076%;
+        transform: rotate(180deg);
     }
 }
 
