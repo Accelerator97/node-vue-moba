@@ -37,7 +37,6 @@ export default {
   methods: {
     async fetchHeroCates() {
       const res = await this.$http.get("heroes/list");
-      console.log(res);
       this.heroesCats = res.data;
     },
   },

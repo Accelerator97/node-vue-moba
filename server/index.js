@@ -11,8 +11,12 @@ app.use('/uploads',express.static(__dirname + '/uploads'))
 
 //引用进来是一个函数需要执行，向这个函数传入app作为参数
 require('./routes/admin')(app)
-require('./routes/web')(app)
+require('./routes/web/init')(app) //通过JS向数据库导入数据
+require('./routes/web/index')(app)
 require('./plugins/db')(app)
+
+//导入数据
+
 
 
 app.listen(3000,()=>{

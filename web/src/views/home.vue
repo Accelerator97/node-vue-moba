@@ -43,6 +43,7 @@
     <!-- 精灵图结束 -->
     <Articles />
     <Heroes />
+    <Videos />
   </div>
 </template>
 
@@ -60,8 +61,9 @@ import "swiper/components/pagination/pagination.scss";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 import Heroes from "../components/home/heroes.vue";
 import Articles from "../components/home/articles.vue";
+import Videos from "../components/home/videos.vue";
 export default {
-  components: { Swiper, SwiperSlide, Heroes, Articles },
+  components: { Swiper, SwiperSlide, Heroes, Articles,Videos },
   data() {
     return {
       //精灵图数据

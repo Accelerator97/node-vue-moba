@@ -31,7 +31,7 @@ module.exports = app => {
         if (req.Model.modelName === 'Category') {
             queryOptions.populate = 'parent';
         }
-        //返回10条数据给前端
+        //返回100条数据给前端
         const items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items)
     })
