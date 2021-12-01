@@ -8,11 +8,13 @@ module.exports = app => {
     mongoose.model.Hero = require('../../models/Hero')
     mongoose.model.Item = require('../../models/Item')
     mongoose.model.Strategy = require('../../models/Strategy')
+    mongoose.model.Ad = require('../../models/Ad')
     let Category = mongoose.model.Category,
         Article = mongoose.model.Article,
         Hero = mongoose.model.Hero,
         Item = mongoose.model.Item,
-        Strategy = mongoose.model.Strategy
+        Strategy = mongoose.model.Strategy,
+        Ad = mongoose.model.Ad
 
     //前端web的新闻接口，http://localhost:3000/web/api/news/list可以看到接口的数据
     router.get('/news/list', async (req, res) => {
@@ -135,6 +137,27 @@ module.exports = app => {
         ])
         // let cats = await Strategy.find().populate('cate')
         res.send(cats)
+    })
+
+    router.get('/ads/list', async (req, res) => {
+        const data = await Ad.find()
+        res.send(data)
+    })
+
+    // 热门视频接口
+    router.get('/strategy/hotvideos', async (req, res) => {
+
+        const data_1 = await Strategy.find().collation({ "locale": "zh", numericOrdering: true }).sort({ play_volume: -1 }).skip(30).limit(10)
+        const data_2 = await Strategy.find().collation({ "locale": "zh", numericOrdering: true }).sort({ play_volume: -1 }).skip(20).limit(10)
+        const data_3 = await Strategy.find().collation({ "locale": "zh", numericOrdering: true }).sort({ play_volume: -1 }).skip(10).limit(10)
+        const data = [[...data_1], [...data_2], [...data_3]]
+        const _data = ['日', '周', '月'].map((item, i) => {
+            return {
+                name: item,
+                data: data[i]
+            }
+        })
+        res.send(_data)
     })
 
     app.use('/web/api', router)

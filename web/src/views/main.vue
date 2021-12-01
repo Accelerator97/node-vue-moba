@@ -10,24 +10,20 @@
     </div>
     <div class="bg-primary pt-2 pb-2">
       <div class="nav nav-inverse jc-around ai-center">
-        <div class="nav-item active">
-          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/home">
+        <div
+          class="nav-item"
+          :class="{ 'active': active=== index }"
+          v-for="(item, index) in navPaths"
+          :key="index"
+          @click="active = index"
+        >
+          <router-link
+            class="nav-link text-white"
+            v-slot="{ navigate }"
+            :to="item.path"
+          >
             <div @click="navigate" @keypress.enter="navigate" role="link">
-              首页
-            </div>
-          </router-link>
-        </div>
-        <div class="nav-item">
-          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/strategycenter">
-            <div @click="navigate" @keypress.enter="navigate" role="link">
-              攻略中心
-            </div>
-          </router-link>
-        </div>
-        <div class="nav-item ">
-          <router-link class="nav-link text-white" v-slot="{ navigate }" to="/matchcenter">
-            <div @click="navigate" @keypress.enter="navigate" role="link">
-              赛事中心
+              {{ item.name }}
             </div>
           </router-link>
         </div>
@@ -39,14 +35,21 @@
 
 <script>
 export default {
-  setup() {
-    return {};
+  data() {
+    return {
+      active: 0,
+      navPaths: [
+        { path: "/home", name: "首页" },
+        { path: "/strategycenter", name: "攻略中心" },
+        { path: "/matchcenter", name: "赛事中心" },
+      ],
+    };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.topbar{
+.topbar {
   position: sticky;
   top: 0;
   z-index: 999;

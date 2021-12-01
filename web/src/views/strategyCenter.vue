@@ -1,9 +1,57 @@
 <template>
-  <div>攻略中心</div>
+  <div>
+    <!-- 轮播图 -->
+    <swiper
+      class="swiper-container"
+      autoplay
+      loop
+      :slides-per-view="1"
+      :pagination="{ clickable: false }"
+    >
+      <swiper-slide
+        class="swiper-slide"
+        v-for="item in slides.items"
+        :key="item._id"
+      >
+        <img class="w-100" :src="item.image" />
+      </swiper-slide>
+    </swiper>
+    <!-- 热门视频 -->
+    <HotVideo/>
+  </div>
 </template>
 
 <script>
-export default {};
+import SwiperCore, {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper.scss";
+import "swiper/components/pagination/pagination.scss";
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
+import HotVideo from "../components/strategy/hotVideo.vue";
+export default {
+  components: { Swiper, SwiperSlide,HotVideo },
+  data() {
+    return {
+      slides: {},
+    };
+  },
+  methods: {
+    async fetchSlides() {
+      const res = await this.$http.get("/ads/list");
+      console.log(res)
+      this.slides = res.data[0];
+    },
+  },
+  created() {
+    this.fetchSlides();
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -39,10 +39,11 @@ export default {
   methods: {
     async fetch() {
       const res = await this.$http.get("rest/ads");
+      console.log(res)
       this.items = res.data;
     },
     async remove(row) {
-      this.$confirm(`是否确认删除分类:${row.name}`, "提示", {
+      this.$confirm(`是否确认删除广告:${row.name}`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",

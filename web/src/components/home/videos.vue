@@ -57,7 +57,6 @@ export default {
   methods: {
     async fetchVideoCats() {
       const res = await this.$http.get("/strategy/list");
-      console.log(res.data);
       this.videoCats = res.data;
     },
     beautify(date) {
