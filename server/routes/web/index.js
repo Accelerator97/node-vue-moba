@@ -131,7 +131,7 @@ module.exports = app => {
             //每个videoList只要5条数据
             {
                 $addFields: {
-                    'videoList': { $slice: ['$videoList', 5] }
+                    'videoList': { $slice: ['$videoList', 4] }
                 }
             }
         ])
@@ -160,5 +160,44 @@ module.exports = app => {
         res.send(_data)
     })
 
+    //英雄攻略-targetHeroList 接口
+    router.get('/strategy/targetheroes', async (req, res) => {
+        const data = []
+        const heroes = await Hero.find({ name: { $in: ['后羿', '孙悟空', '铠', '孙尚香', '梦奇', '赵云'] } })
+        heroes.forEach(hero => {
+            if (hero.name === '后羿') data[0] = hero
+            if (hero.name === '孙悟空') data[1] = hero
+            if (hero.name === '铠') data[2] = hero
+            if (hero.name === '孙尚香') data[3] = hero
+            if (hero.name === '梦奇') data[4] = hero
+            if (hero.name === '赵云') data[5] = hero
+        })
+        res.send(data)
+    })
+
+
+    // 英雄攻略接口 针对单个英雄获取攻略
+    router.get('/strategy/hero_strategies/:id', async (req, res) => {
+        const hero = await Hero.findById(req.params.id).populate('categories').lean()
+
+        const videos = await Strategy.find({
+            hero: { $elemMatch: { $eq: hero._id } },
+            play_volume: { $exists: true }
+        }).limit(2) 
+
+        const graphics = await Strategy.find({
+            hero: { $elemMatch: { $eq: hero._id } },
+            play_volume: undefined
+        }).limit(2)
+
+        let num1 = Math.floor(Math.random() * 10) + 1;
+        let num2 = Math.floor(Math.random() * 10) + 1;
+        hero.appearance_rank = num1
+        hero.win_rate_rank = num2
+        hero.videos = videos
+        hero.graphics = graphics
+
+        res.send(hero)
+    })
     app.use('/web/api', router)
 }

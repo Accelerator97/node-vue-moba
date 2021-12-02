@@ -18,6 +18,8 @@
     </swiper>
     <!-- 热门视频 -->
     <HotVideo/>
+    <!-- 英雄攻略 -->
+    <HeroStrategy />
   </div>
 </template>
 
@@ -34,8 +36,9 @@ import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 import HotVideo from "../components/strategy/hotVideo.vue";
+import HeroStrategy from "../components/strategy/heroStrategy.vue";
 export default {
-  components: { Swiper, SwiperSlide,HotVideo },
+  components: { Swiper, SwiperSlide,HotVideo,HeroStrategy },
   data() {
     return {
       slides: {},

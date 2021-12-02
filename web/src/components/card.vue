@@ -2,7 +2,7 @@
   <div class="card bg-white p-3 mt-3">
     <div class="card-header d-flex ai-center pb-3">
       <i class="iconfont" :class="`icon-${icon}`"></i>
-      <div class="fs-xl flex-1 px-2">{{ title }}</div>
+      <strong class="fs-xl flex-1 px-2">{{ title }}</strong>
       <i class="iconfont icon-more" v-if="!plain"></i>
     </div>
     <div class="card-body pt-3 pb-2">

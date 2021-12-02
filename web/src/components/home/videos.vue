@@ -70,13 +70,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.video-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; //多行在这里修改数字即可
-  overflow: hidden;
-  /* autoprefixer: ignore next */
-  -webkit-box-orient: vertical;
-}
 </style>

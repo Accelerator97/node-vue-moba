@@ -23,6 +23,9 @@ a {
     color: #999;
     text-decoration: none;
 }
+li {
+    list-style: none;
+}
 
 //colors
 
@@ -206,3 +209,27 @@ a {
         border-#{$dir}:1px solid $border-color
     }
 }
+
+//video
+.video-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; //多行在这里修改数字即可
+    overflow: hidden;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+    height: 2.4615rem;
+  }
+
+  //清除浮动
+.clearfix:after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  .clearfix {
+    *zoom: 1;
+  }
