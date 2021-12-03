@@ -200,8 +200,10 @@ module.exports = app => {
             })
 
             await Article.insertMany(data)
-            res.send(data)
+         
         }
+
+           res.send(await Article.find())
     })
 
     app.use('/web/api', router)

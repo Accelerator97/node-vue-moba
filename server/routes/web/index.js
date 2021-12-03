@@ -203,15 +203,14 @@ module.exports = app => {
     router.get('/race/information', async (req, res) => {
           
         if (req.query.id && req.query.pageNum) {
-
             const skipNum = 10 * (req.query.pageNum)
-            const data = await Article.find().skip(skipNum).limit(10)
+            const cate = await Category.findById(req.query.id)
+            const data = await Article.find({ categories: { $elemMatch: { $eq: cate._id } } }).skip(skipNum).limit(10)
             res.send(data)
-      
           } else {
-      
+    
             const parent = await Category.findOne({ name: "赛事中心" })
-            const cetes = await Category.aggregate([
+            const cates = await Category.aggregate([
               { $match: { parent: parent._id } },
               {
                 $lookup: {
@@ -228,7 +227,7 @@ module.exports = app => {
               }
             ])
       
-            res.send(cetes)
+            res.send(cates)
       
           }
     

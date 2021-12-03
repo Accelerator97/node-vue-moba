@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="matchCenter">
     <scroll
       class="scroll"
       :probe-type="3"
@@ -7,74 +7,93 @@
       pullUpLoad
       ref="raceScroll"
       @pullingUp="pullingUp"
+      scrollY
       scrollX
+      observeImage
     >
-      <list-card
-        :categories="matchCates"
-        :showHeader="false"
-        icon="null"
-        title="null"
-      >
-        <template #items="{ category }">
-          <div>
-            <div class="d-flex mb-2 mt-1">
-              <span class="text-blue fs-xxl" style="font-weight: bold"
-                >王者荣耀{{ category.name }}</span
-              >
-              <span class="logo-text pb-2">官方举办</span>
-            </div>
-            <div>
-              <img :src="category.banner" class="w-100" />
-            </div>
-            <div
-              class="w-100 bg-grey-2 mt-2 fs-lg text-center"
-              style="color:#a2a2a2;height：28.5px;line-height:28.5px"
-            >
-              <span>赛事咨询</span>
-            </div>
-            <ul class="p-0">
-              <li
-                v-for="item in category.information_list"
-                :key="item._id"
-                class="my-1"
-              >
-                <a :href="item.url" style="color: #a2a2a2">
-                  <span
-                    class="text-ellipse mr-4 ml-1"
-                    style="width: 85%; vertical-align: middle"
-                    >{{ item.title }}</span
-                  >
-                  <span style="width: 15%; vertical-align: middle">{{
-                    beautify(item.updateTime)
-                  }}</span>
-                </a>
-              </li>
-            </ul>
-            <div
-              class="w-100 bg-grey-2 mt-2 fs-lg text-center"
-              style="color:#a2a2a2;height：28.5px;line-height:28.5px"
-            >
-              <span>{{
-                isSeeMore
-                  ? "已显示全部内容"
-                  : isLoding
-                  ? "加载中..."
-                  : "上拉加载更多"
-              }}</span>
-            </div>
+      <div>
+        <div class="nav pb-3 jc-between mt-3">
+          <div
+            class="nav-item mx-2"
+            :class="{ active: currentNavIndex === index }"
+            v-for="(category, index) in matchCates"
+            :key="index"
+            @click="handleClick(index)"
+          >
+            <div class="nav-link">{{ category.name }}</div>
           </div>
-        </template>
-      </list-card>
+        </div>
+        <swiper
+          ref="list"
+          autoHeight
+          @swiper="onSwiper"
+          @slide-change="slideChange()"
+        >
+          <swiper-slide v-for="(category, index) in matchCates" :key="index">
+            <div>
+              <div class="d-flex mb-2 mt-1">
+                <span class="text-blue fs-xxl" style="font-weight: bold"
+                  >王者荣耀{{ category.name }}</span
+                >
+                <span class="logo-text pb-2">官方举办</span>
+              </div>
+              <div>
+                <img :src="category.banner" class="w-100" />
+              </div>
+              <div
+                class="w-100 bg-grey-2 mt-2 fs-lg text-center"
+                style="color:#a2a2a2;height：28.5px;line-height:28.5px"
+              >
+                <span>赛事咨询</span>
+              </div>
+              <ul class="pl-0">
+                <li
+                  v-for="item in category.information_list"
+                  :key="item._id"
+                  class="my-1"
+                >
+                  <a :href="item.url" style="color: #a2a2a2">
+                    <span
+                      class="text-ellipse mr-4 ml-1"
+                      style="width: 85%; vertical-align: middle"
+                      >{{ item.title }}</span
+                    >
+                    <span style="width: 15%; vertical-align: middle">{{
+                      beautify(item.updateTime)
+                    }}</span>
+                  </a>
+                </li>
+              </ul>
+              <div
+                class="w-100 bg-grey-2 mt-2 fs-lg text-center"
+                style="color:#a2a2a2;height：28.5px;line-height:28.5px"
+              >
+                <span>{{
+                  isSeeMore
+                    ? "已显示全部内容"
+                    : isLoding
+                    ? "加载中..."
+                    : "上拉加载更多"
+                }}</span>
+              </div>
+            </div>
+          </swiper-slide>
+        </swiper>
+      </div>
     </scroll>
   </div>
 </template>
 
 <script>
-import ListCard from "../components/listCard.vue";
 import Scroll from "../components/scroll.vue";
 import dayjs from "dayjs";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/vue";
+import "swiper/swiper.scss";
+import "swiper/components/pagination/pagination.scss";
+SwiperCore.use([Navigation, Pagination, Scrollbar, A11y]);
 export default {
-  components: { ListCard, Scroll },
+  components: { Scroll, Swiper, SwiperSlide },
   data() {
     return {
       matchCates: [],
@@ -91,6 +110,8 @@ export default {
       pageNum: 1,
       isSeeMore: false,
       isLoding: false,
+      currentNavIndex: 0,
+      swiper: null,
     };
   },
   computed: {
@@ -105,7 +126,6 @@ export default {
       this.matchCates.map((item, i) => {
         item.banner = this.matchBanners[i].img;
       });
-      console.log(this.matchCates);
     },
     beautify(date) {
       return dayjs(date).format("MM/DD");
@@ -113,56 +133,130 @@ export default {
     async pullingUp() {
       this.scroll.refresh();
       this.isLoding = true;
-      console.log("下拉");
       const res = await this.$http.get("/race/information", {
         params: {
+          id: this.matchCates[this.currentNavIndex]._id,
           pageNum: this.pageNum,
         },
       });
+      console.log("上拉加载请求回来的数据");
+      console.log(res.data);
       this.isLoding = false;
       // 如果拿到结果则让页数＋1，并重启下拉加载事件
       // 如果服务器出现错误，则重启下拉加载事件
       // 如果没有更多数据或页数等于3时，则终止下拉加载
       if (!res) return this.scroll.finishPullUp();
       if (res.data.length === 0) return (this.isSeeMore = true);
-      for (let item of this.matchCates) {
-        item.information_list.push(...res.data);
-      }
+      this.matchCates[this.currentNavIndex].information_list.push(...res.data);
       this.scroll.refresh();
-      this.scroll.finishPullUp();
-      console.log("滚动", this.matchCates);
-
+      // this.scroll.finishPullUp();
+      console.log("数据合并", this.matchCates);
       this.pageNum++;
+    },
+    handleClick(index) {
+      this.swiper.slideTo(index);
+      this.currentNavIndex = index;
+      if (this.matchCates[this.currentNavIndex].information_list.length > 50) {
+        this.pageNum = 5;
+        this.isSeeMore = false;
+      } else if (
+        this.matchCates[this.currentNavIndex].information_list.length <= 50 &&
+        this.matchCates[this.currentNavIndex].information_list.length > 40
+      ) {
+        this.pageNum = 4;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      } else if (
+        this.matchCates[this.currentNavIndex].information_list.length <= 30 &&
+        this.matchCates[this.currentNavIndex].information_list.length > 20
+      ) {
+        this.pageNum = 3;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      } else if (
+        this.matchCates[this.currentNavIndex].information_list.length <= 20 &&
+        this.matchCates[this.currentNavIndex].information_list.length > 10
+      ) {
+        this.pageNum = 2;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      } else {
+        this.pageNum = 1;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      }
+    },
+    slideChange() {
+      this.currentNavIndex = this.swiper.realIndex;
+      if (this.matchCates[this.currentNavIndex].information_list.length > 50) {
+        this.pageNum = 5;
+        this.isSeeMore = false;
+      } else if (
+        this.matchCates[this.currentNavIndex].information_list.length <= 50 &&
+        this.matchCates[this.currentNavIndex].information_list.length > 40
+      ) {
+        this.pageNum = 4;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      } else if (
+        this.matchCates[this.currentNavIndex].information_list.length <= 30 &&
+        this.matchCates[this.currentNavIndex].information_list.length > 20
+      ) {
+        this.pageNum = 3;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      } else if (
+        this.matchCates[this.currentNavIndex].information_list.length <= 20 &&
+        this.matchCates[this.currentNavIndex].information_list.length > 10
+      ) {
+        this.pageNum = 2;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      } else {
+        this.pageNum = 1;
+        this.isSeeMore = false;
+        this.scroll.finishPullUp();
+      }
+    },
+    onSwiper(swiper) {
+      this.swiper = swiper;
     },
   },
   created() {
     this.fetchmatchCates();
   },
+  mounted(){
+    console.log(this.$refs.raceScroll)
+    console.log(this.$refs.raceScroll.scroll)
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-::v-deep .card {
-  padding-top: 0.25rem;
-  padding-left: 0;
-  padding-right: 0;
+.matchCenter {
   height: 100%;
+  // 6.0285 导航栏 + logo 高度
+  // height: calc(100vh-6.0285rem);
+  // position: relative;
+}
+.scroll {
+  // position: absolute;
+  // top: 6.0285rem;
+  // bottom: 49px;
+  // left: 0px;
+  // right: 0px;
+  // height: 100%;
+  // overflow: hidden;
   .nav {
     overflow-x: auto;
-    padding-left: 0;
+    overflow-y: hidden;
     &::-webkit-scrollbar {
-      width: 0 !important;
+      display: none;
     }
-    > .nav-item {
-      margin-left: 0.4rem;
-      margin-right: 0.4rem;
+    .nav-item {
       white-space: nowrap;
     }
   }
-}
-.scroll {
-  height: calc(100vh - 3.48rem);
-  overflow: hidden;
   .logo-text {
     border: 1px solid #a2a2a2;
     border-radius: 50px;
