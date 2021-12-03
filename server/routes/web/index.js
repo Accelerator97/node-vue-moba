@@ -199,5 +199,42 @@ module.exports = app => {
 
         res.send(hero)
     })
+
+    router.get('/race/information', async (req, res) => {
+          
+        if (req.query.id && req.query.pageNum) {
+
+            const skipNum = 10 * (req.query.pageNum)
+            const data = await Article.find().skip(skipNum).limit(10)
+            res.send(data)
+      
+          } else {
+      
+            const parent = await Category.findOne({ name: "赛事中心" })
+            const cetes = await Category.aggregate([
+              { $match: { parent: parent._id } },
+              {
+                $lookup: {
+                  from: "articles",
+                  localField: "_id",
+                  foreignField: "categories",
+                  as: "information_list"
+                }
+              },
+              {
+                $addFields: {
+                  information_list: { $slice: ['$information_list', 10] }
+                }
+              }
+            ])
+      
+            res.send(cetes)
+      
+          }
+    
+        })
+    
+     
+
     app.use('/web/api', router)
 }

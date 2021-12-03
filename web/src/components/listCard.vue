@@ -1,5 +1,5 @@
 <template>
-  <Card :icon="icon" :title="title">
+  <Card :icon="icon" :title="title" :plain="plain" :showHeader="showHeader">
     <div class="nav pb-3 jc-between">
       <div
         class="nav-item"
@@ -15,7 +15,7 @@
       ref="list"
       autoHeight
       @swiper="onSwiper"
-      @slide-change="() => active = swiper.realIndex"
+      @slide-change="() => (active = swiper.realIndex)"
     >
       <swiper-slide v-for="(category, index) in categories" :key="index">
         <slot name="items" :category="category"></slot>
@@ -26,12 +26,7 @@
 
 <script>
 import Card from "../components/card.vue";
-import SwiperCore, {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-} from "swiper";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import "swiper/swiper.scss";
 import "swiper/components/pagination/pagination.scss";
@@ -43,6 +38,8 @@ export default {
     icon: { type: String, required: true },
     title: { type: String, required: true },
     categories: { type: Array, required: true },
+    plain: { type: Boolean },
+    showHeader: {type: Boolean,defaults: true},
   },
   data() {
     return {
@@ -52,7 +49,7 @@ export default {
   },
   methods: {
     handleClick(index) {
-      this.swiper.slideTo(index)
+      this.swiper.slideTo(index);
     },
     onSwiper(swiper) {
       this.swiper = swiper;

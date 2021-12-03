@@ -1,6 +1,6 @@
 <template>
   <div class="card bg-white p-3 mt-3">
-    <div class="card-header d-flex ai-center pb-3">
+    <div class="card-header d-flex ai-center pb-3" v-if="showHeader">
       <i class="iconfont" :class="`icon-${icon}`"></i>
       <strong class="fs-xl flex-1 px-2">{{ title }}</strong>
       <i class="iconfont icon-more" v-if="!plain"></i>
@@ -25,6 +25,10 @@ export default {
     plain:{
       type:Boolean,
       defaults:false
+    },
+    showHeader:{
+      type:Boolean,
+      defaults:true
     }
   },
 };

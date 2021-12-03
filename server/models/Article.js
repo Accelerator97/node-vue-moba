@@ -4,6 +4,7 @@ const Schema = new mongoose.Schema({
     title: { type: String },
     categories: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'Category' }], //有可能有多个分类
     body: { type: String },
+    url:{type:String},
     createTime: {
         type: Date,
         default: Date.now

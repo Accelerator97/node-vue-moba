@@ -42,9 +42,13 @@ export default {
       if (this.id) {
         res = await this.$http.put(`rest/categories/${this.id}`, this.model);
       } else {
+        if(this.model.parent === ''){this.model.parent = null}
         res = await this.$http.post("rest/categories", this.model);
+        console.log(res)
       }
-      this.$router.push("/categories/list");
+      this.model.name = ''
+      this.model.parent= '' 
+      // this.$router.push("/categories/list");
       this.$message({
         type: "success",
         message: "保存成功",
