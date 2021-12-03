@@ -8,14 +8,8 @@
       :slides-per-view="1"
       :pagination="{ clickable: false }"
     >
-      <swiper-slide class="swiper-slide">
-        <img class="w-100" src="../assets/images/1.jpeg" />
-      </swiper-slide>
-      <swiper-slide class="swiper-slide">
-        <img class="w-100" src="../assets/images/2.jpeg" />
-      </swiper-slide>
-      <swiper-slide class="swiper-slide">
-        <img class="w-100" src="../assets/images/3.jpeg" />
+      <swiper-slide class="swiper-slide" v-for="item in slides.items" :key="item._id">
+        <img class="w-100" :src="item.image" />
       </swiper-slide>
     </swiper>
     <!-- 轮播图结束 -->
@@ -146,6 +140,7 @@ export default {
       ],
       //收起展开
       isShowAll: true,
+      slides: {},
     };
   },
   methods: {
@@ -155,7 +150,14 @@ export default {
     entryBtnClick() {
       this.isShowAll = !this.isShowAll;
     },
+    async fetchSlides() {
+      const res = await this.$http.get("/ads/list");
+      this.slides = res.data[1];
+    },
   },
+  created(){
+     this.fetchSlides();
+  }
 };
 </script>
 
