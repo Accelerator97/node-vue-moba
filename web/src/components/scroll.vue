@@ -9,9 +9,11 @@
 <script>
 import BScroll from "@better-scroll/core";
 import Pullup from "@better-scroll/pull-up";
+import ObserveDOM from '@better-scroll/observe-dom'
 import ObserveImage from "@better-scroll/observe-image";
 BScroll.use(ObserveImage);
 BScroll.use(Pullup);
+BScroll.use(ObserveDOM)
 export default {
   props: {
     probeType: {
@@ -63,6 +65,7 @@ export default {
         bounce: this.bounce,
         eventPassthrough: this.scrollX ? "horizontal" : "",
         stopPropagation: true,
+        observeDOM: true,
         observeImage: this.observeImage,
       });
       //监听滚动事件
