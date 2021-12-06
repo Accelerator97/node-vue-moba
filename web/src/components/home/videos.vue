@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ListCard icon="shipin" title="精彩视频" :categories="videoCats">
+    <ListCard icon="shipin" title="精彩视频" :categories="videoCats" showHeader>
       <template #items="{ category }">
         <div class="d-flex flex-wrap border-bottom" style="margin: 0 -0.5rem">
           <div

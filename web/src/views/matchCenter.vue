@@ -139,8 +139,8 @@ export default {
           pageNum: this.pageNum,
         },
       });
-      console.log("上拉加载请求回来的数据");
-      console.log(res.data);
+      // console.log("上拉加载请求回来的数据");
+      // console.log(res.data);
       this.isLoding = false;
       // 如果拿到结果则让页数＋1，并重启下拉加载事件
       // 如果服务器出现错误，则重启下拉加载事件
@@ -149,8 +149,8 @@ export default {
       if (res.data.length === 0) return (this.isSeeMore = true);
       this.matchCates[this.currentNavIndex].information_list.push(...res.data);
       this.scroll.refresh();
-      // this.scroll.finishPullUp();
-      console.log("数据合并", this.matchCates);
+      this.scroll.finishPullUp();
+      // console.log("数据合并", this.matchCates);
       this.pageNum++;
     },
     handleClick(index) {
@@ -225,10 +225,6 @@ export default {
   created() {
     this.fetchmatchCates();
   },
-  mounted(){
-    console.log(this.$refs.raceScroll)
-    console.log(this.$refs.raceScroll.scroll)
-  }
 };
 </script>
 

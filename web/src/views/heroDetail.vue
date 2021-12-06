@@ -189,7 +189,6 @@ export default {
     async fetchHeroDetail() {
       const res = await this.$http.get(`/heroes/${this.id}`);
       this.model = res.data;
-      console.log(res);
     },
   },
 };

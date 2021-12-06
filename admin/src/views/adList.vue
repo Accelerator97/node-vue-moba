@@ -39,7 +39,6 @@ export default {
   methods: {
     async fetch() {
       const res = await this.$http.get("rest/ads");
-      console.log(res)
       this.items = res.data;
     },
     async remove(row) {

@@ -65,7 +65,6 @@ export default {
   methods: {
     async login() {
       const res = await this.$http.post("login", this.loginForm);
-      console.log(res);
       if (res.status == 200) {
         this.$message.success("登录成功");
       } else {
@@ -77,9 +76,6 @@ export default {
       this.$router.push("/main");
     },
   },
-  created(){
-    console.log(this.getAuthHeaders())
-  }
 };
 </script>
 

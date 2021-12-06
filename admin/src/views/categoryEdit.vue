@@ -44,7 +44,6 @@ export default {
       } else {
         if(this.model.parent === ''){this.model.parent = null}
         res = await this.$http.post("rest/categories", this.model);
-        console.log(res)
       }
       this.model.name = ''
       this.model.parent= '' 

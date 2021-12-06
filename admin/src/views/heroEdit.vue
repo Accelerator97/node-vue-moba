@@ -300,7 +300,6 @@ export default {
     },
     async fetchCategories() {
       const res = await this.$http.get(`rest/categories`);
-      console.log(res);
       this.categories = res.data.filter(
         (item) => item.parent && item.parent.name === "英雄分类"
       );
