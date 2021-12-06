@@ -66,7 +66,7 @@ module.exports = app => {
     //upload.single接受单个文件上传
     app.post('/admin/api/upload',authMiddleWare(),upload.single('file'),async(req,res)=>{ 
         const file = req.file
-        file.url = `http://localhost:3000/uploads/${file.filename}`
+        file.url = `http://test.acceleratordd.top/uploads/${file.filename}`
         res.send(file)
     })
     
