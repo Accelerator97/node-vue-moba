@@ -9,11 +9,11 @@
 <script>
 import BScroll from "@better-scroll/core";
 import Pullup from "@better-scroll/pull-up";
-import ObserveDOM from '@better-scroll/observe-dom'
+import ObserveDOM from "@better-scroll/observe-dom";
 import ObserveImage from "@better-scroll/observe-image";
 BScroll.use(ObserveImage);
 BScroll.use(Pullup);
-BScroll.use(ObserveDOM)
+BScroll.use(ObserveDOM);
 export default {
   props: {
     probeType: {
@@ -36,11 +36,11 @@ export default {
       type: Boolean,
       default: false,
     },
-    scrollY: {
+    observeImage: {
       type: Boolean,
       default: false,
     },
-    observeImage: {
+    observeDOM: {
       type: Boolean,
       default: false,
     },
@@ -51,22 +51,21 @@ export default {
     };
   },
   mounted() {
-    setTimeout(() => {
-      this.initBscroll();
-    }, 2000);
+    this.initBscroll();
   },
   methods: {
     initBscroll() {
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
-        scrollY: this.scrollY,
         click: this.click,
         pullUpLoad: this.pullUpLoad,
         bounce: this.bounce,
         eventPassthrough: this.scrollX ? "horizontal" : "",
         stopPropagation: true,
-        observeDOM: true,
+        observeDOM: this.observeDOM,
         observeImage: this.observeImage,
+        disableTouch: false,
+        useTransition: true
       });
       //监听滚动事件
       this.scroll.on("scroll", (position) => {
@@ -75,9 +74,6 @@ export default {
       //监听上拉加载事件
       this.scroll.on("pullingUp", () => {
         this.$emit("pullingUp");
-      });
-      this.scroll.on("beforeScrollStart", () => {
-        this.scroll.refresh();
       });
     },
     scrollTo(x, y, time = 500) {
@@ -94,8 +90,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  height: 100%;
-  overflow: hidden;
-}
+
 </style>

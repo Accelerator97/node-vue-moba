@@ -6,7 +6,7 @@ app.set('secret','asdad1dasdafjlkj8')
 //把跨域模块cors引入
 app.use(require('cors')())
 app.use(express.json())
-//托管静态文件，可以让uploads里面的内容通过/uploads来访问
+//托管静态文件，可以让uploads里面的内容通过/uploads /admin /来访问
 app.use('/uploads',express.static(__dirname + '/uploads'))
 app.use('/admin',express.static(__dirname + '/admin'))
 app.use('/',express.static(__dirname + '/web'))
