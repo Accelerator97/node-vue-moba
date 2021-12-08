@@ -129,13 +129,13 @@
                 </div>
               </div>
             </Card>
-            <Card plain icon="menu" title="使用技巧">
+            <Card plain icon="menu" title="使用技巧" showHeader>
               <p class="m-0">{{ model.usageTips }}</p>
             </Card>
-            <Card plain icon="menu" title="对抗技巧">
+            <Card plain icon="menu" title="对抗技巧" showHeader>
               <p class="m-0">{{ model.battleTips }}</p>
             </Card>
-            <Card plain icon="menu" title="团战思路">
+            <Card plain icon="menu" title="团战思路" showHeader>
               <p class="m-0">{{ model.teamTips }}</p>
             </Card>
             <Card plain icon="menu" title="英雄关系"> 

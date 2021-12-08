@@ -17,7 +17,6 @@ require('./routes/web/init')(app) //通过JS向数据库导入数据
 require('./routes/web/index')(app)
 require('./plugins/db')(app)
 
-//导入数据
 
 
 
