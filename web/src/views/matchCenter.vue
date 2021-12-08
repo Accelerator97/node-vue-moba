@@ -179,7 +179,7 @@ export default {
 .logo-text {
   border: 1px solid #a2a2a2;
   border-radius: 50px;
-  min-width: 5.4254rem;
+  min-width: 5.6rem;
   color: #a2a2a2;
   padding: 0.5% 2%;
   margin-left: 4%;

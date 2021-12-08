@@ -112,7 +112,7 @@
                 </div>
               </div>
             </div>
-            <Card plain icon="menu" title="出装推荐" class="heroes-items">
+            <Card plain icon="menu" title="出装推荐" class="heroes-items" showHeader>
               <div class="fs-xl">顺风出装</div>
               <div class="d-flex jc-around text-center mt-3">
                 <div v-for="item in model.items1" :key="item.name">
