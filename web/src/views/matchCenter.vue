@@ -104,7 +104,6 @@ export default {
       this.matchCates.map((item, i) => {
         item.banner = this.matchBanners[i].img;
       });
-      console.log(res.data);
     },
     beautify(date) {
       return dayjs(date).format("MM/DD");
@@ -137,7 +136,7 @@ export default {
         // console.log("请求回来数据合并", this.matchCates);
         this.pageNum++;
       }
-      this.isTabchange = false
+      this.isTabchange = false;
     },
     onRefresh() {
       this.finished = false;
@@ -146,7 +145,7 @@ export default {
       this.isLoading = false; // 下拉加载完成，关闭，不然就会有两个显示加载中的转圈圈。list本身就有一个了
     },
     tabchange() {
-      this.isTabchange=true
+      this.isTabchange = true;
       this.pageNum = 1;
       this.isFinished = false;
       this.isLoading = false;
@@ -160,17 +159,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../assets/styles/_variables.scss";
 /deep/.van-tabs__wrap {
   touch-action: manipulation;
 }
-// .tab {
-//   height: calc(100vh);
-// }
-// .list {
-//   height: 100%;
-//   width: 100%;
-//   overflow-y: auto;
-// }
+/deep/.van-tabs__line {
+  background-color: map-get($colors, "primary");
+}
 .nav {
   overflow-x: auto;
   overflow-y: hidden;
